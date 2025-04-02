@@ -3,13 +3,20 @@ import {
     Typography,
 } from '@mui/material';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import MesSelector from '../componentes/MesSelector';
 import DiaSelector from '../componentes/DiaSelector';
 import HorarioSelector from '../componentes/HorarioSelector';
 import ListaAgendamentos from '../componentes/ListaAgendamentos';
 import AgendamentoDialog from '../componentes/AgendamentoDialog';
+
+interface Agendamento {
+    nome: string;
+    telefone: string;
+    dia: string;
+    hora: string;
+}
 
 const meses = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -28,11 +35,18 @@ export default function AgendamentoPage() {
     const [horarioSelecionado, setHorarioSelecionado] = useState<string | null>(null);
     const [dialogOpen, setDialogOpen] = useState(false);
     const [cliente, setCliente] = useState({ nome: '', telefone: '' });
-    const [agendamentos, setAgendamentos] = useState<any[]>(() => {
+
+    const [agendamentos, setAgendamentos] = useState<Agendamento[]>(() => {
         const armazenados = localStorage.getItem('agendamentos');
         return armazenados ? JSON.parse(armazenados) : [];
     });
+
     const [editIndex, setEditIndex] = useState<number | null>(null);
+
+    // ✅ Persistir no localStorage sempre que os agendamentos mudarem
+    useEffect(() => {
+        localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
+    }, [agendamentos]);
 
     const estaAgendado = (dia: string | null, hora: string) => {
         return agendamentos.some(a => a.dia === dia && a.hora === hora);
@@ -91,10 +105,34 @@ export default function AgendamentoPage() {
                     limparDiaSelecionado={() => setDiaSelecionado(null)}
                 />
 
-                <DiaSelector mesSelecionado={mesSelecionado} diaSelecionado={diaSelecionado} setDiaSelecionado={setDiaSelecionado} />
-                <HorarioSelector diaSelecionado={diaSelecionado} horarios={horarios} estaAgendado={estaAgendado} handleAgendarClick={handleAgendarClick} />
-                <ListaAgendamentos agendamentos={agendamentos} onEditar={handleEditar} onExcluir={handleExcluir} />
-                <AgendamentoDialog open={dialogOpen} onClose={() => setDialogOpen(false)} cliente={cliente} setCliente={setCliente} diaSelecionado={diaSelecionado} horarioSelecionado={horarioSelecionado} onSave={handleSalvarAgendamento} />
+                <DiaSelector
+                    mesSelecionado={mesSelecionado}
+                    diaSelecionado={diaSelecionado}
+                    setDiaSelecionado={setDiaSelecionado}
+                />
+
+                <HorarioSelector
+                    diaSelecionado={diaSelecionado}
+                    horarios={horarios}
+                    estaAgendado={estaAgendado}
+                    handleAgendarClick={handleAgendarClick}
+                />
+
+                <ListaAgendamentos
+                    agendamentos={agendamentos}
+                    onEditar={handleEditar}
+                    onExcluir={handleExcluir}
+                />
+
+                <AgendamentoDialog
+                    open={dialogOpen}
+                    onClose={() => setDialogOpen(false)}
+                    cliente={cliente}
+                    setCliente={setCliente}
+                    diaSelecionado={diaSelecionado}
+                    horarioSelecionado={horarioSelecionado}
+                    onSave={handleSalvarAgendamento}
+                />
             </Box>
         </motion.div>
     );

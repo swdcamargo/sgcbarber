@@ -52,9 +52,9 @@ export default function ListaAgendamentos({ agendamentos, onEditar, onExcluir }:
                     >
                         <Stack direction="row" justifyContent="space-between" alignItems="center">
                             <Stack direction="row" spacing={2} alignItems="flex-start">
-                                <Avatar sx={{ bgcolor: 'primary.main' }}>
-                                    <PersonIcon />
-                                </Avatar>
+                                <div className="flex gap-4 items-center">
+                                <Avatar isBordered color="primary" src="https://i.pravatar.cc/150?u=a04258a2462d826712d" />
+                                </div>
                                 <Box>
                                     <Typography variant="subtitle1" fontWeight={600}>
                                         <strong>Nome:</strong> {ag.nome}

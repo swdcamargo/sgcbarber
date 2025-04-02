@@ -55,7 +55,7 @@ export default function DiaSelector({
                                         boxShadow: 8,
                                         transform: 'scale(1.18)',
                                     },
-                                    fontSize: '1.8rem',
+                                    fontSize: '1.4rem',
                                     fontWeight: 700,
                                     letterSpacing: 1,
                                     boxSizing: 'border-box',
