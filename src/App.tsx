@@ -6,6 +6,8 @@ import Faturamento from './pages/Faturamento';
 import Lancamento from './pages/Lancamento';
 import Welcome from './pages/Welcome';
 import Clientes from './pages/Cliente';
+import Agendamento from './pages/AgendamentoPage';
+
 
 
 function App({ toggleTheme }: { toggleTheme: () => void }) {
@@ -20,6 +22,7 @@ function App({ toggleTheme }: { toggleTheme: () => void }) {
           <Route path="/faturamento" element={<Faturamento />} />
           <Route path="/lancamento" element={<Lancamento />} />
           <Route path="/clientes" element={<Clientes />} />
+          <Route path="/agendamento" element={<Agendamento />} />
         </Routes>
       </AnimatePresence>
     </Layout>

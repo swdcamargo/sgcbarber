@@ -24,6 +24,10 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import GroupIcon from '@mui/icons-material/Group'; // <- Ícone para Clientes
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; // ícone recomendado
+
+
+
 
 const drawerWidth = 240;
 
@@ -32,7 +36,8 @@ const navItems = [
     { name: 'Dashboard', icon: DashboardIcon, path: '/dashboard' },
     { name: 'Faturamento', icon: PaymentsIcon, path: '/faturamento' },
     { name: 'Lançamento', icon: AddCircleIcon, path: '/lancamento' },
-    { name: 'Clientes', icon: GroupIcon, path: '/clientes' }, // <- Nova rota adicionada aqui
+    { name: 'Clientes', icon: GroupIcon, path: '/clientes' },
+    { name: 'Agendamento', icon: CalendarMonthIcon, path: '/agendamento' }, // <- Novo item
 ];
 
 export default function Sidebar({
